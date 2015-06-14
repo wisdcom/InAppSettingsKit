@@ -14,6 +14,7 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
+#import "IASKAppSettingsViewController.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
@@ -55,6 +56,24 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+	
+	NSUInteger n = self.navigationController.viewControllers.count;
+	if (n >= 2) {
+		UIViewController *backVC = self.navigationController.viewControllers[n - 2];
+		
+		if ([backVC isKindOfClass:[IASKAppSettingsViewController class]]) {
+			IASKAppSettingsViewController *iaskVC = (IASKAppSettingsViewController *)backVC;
+			
+			if (iaskVC.showDoneButtonOnChildPanes) {
+				// add Done button
+				UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+																							target:iaskVC
+																							action:@selector(dismiss:)];
+				self.navigationItem.rightBarButtonItem = buttonItem;
+			} 
+		}
+	}
+	
     if (_currentSpecifier) {
         [self setTitle:[_currentSpecifier title]];
         _selection.specifier = _currentSpecifier;

@@ -793,7 +793,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         _reloadDisabled = YES; // Disable internal unnecessary reloads
         
         IASKAppSettingsViewController *targetViewController = [[[self class] alloc] init];
-        targetViewController.showDoneButton = NO;
+		targetViewController.showDoneButton             = self.showDoneButtonOnChildPanes;
+		targetViewController.showDoneButtonOnChildPanes = self.showDoneButtonOnChildPanes;
         targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
         targetViewController.delegate = self.delegate;
         targetViewController.settingsStore = self.settingsStore;

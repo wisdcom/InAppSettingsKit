@@ -65,6 +65,7 @@
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) IBInspectable BOOL showDoneButton;
+@property (nonatomic, assign) IBInspectable BOOL showDoneButtonOnChildPanes;
 @property (nonatomic, retain) NSSet *hiddenKeys;
 @property (nonatomic) IBInspectable BOOL neverShowPrivacySettings;
 
