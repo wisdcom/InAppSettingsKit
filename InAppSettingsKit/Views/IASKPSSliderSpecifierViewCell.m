@@ -29,7 +29,7 @@
         _slider = [[IASKSlider alloc] initWithFrame:CGRectMake(0, 0, 0, 23)];
         _slider.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
         UIViewAutoresizingFlexibleWidth;
-        _slider.continuous = NO;
+        _slider.continuous = YES;
         [self.contentView addSubview:_slider];
 
         // MinImage

@@ -96,6 +96,7 @@
 #define kIASKChildTitle                       @"IASKChildTitle"
 
 #define kIASKAppSettingChanged                @"kAppSettingChanged"
+#define kIASKContinousUpdate                  @"kIASKContinousUpdate"
 
 #define kIASKSectionHeaderIndex               0
 

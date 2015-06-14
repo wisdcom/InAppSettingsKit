@@ -391,11 +391,21 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)sliderChangedValue:(id)sender {
     IASKSlider *slider = (IASKSlider*)sender;
-    [self.settingsStore setFloat:[slider value] forKey:[slider key]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
-                                                        object:[slider key]
-                                                      userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:[slider value]]
-                                                                                           forKey:[slider key]]];
+	
+	// now does not store the changed value; leaves that for sliderTouchIsUp: below
+	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
+														object:slider.key
+													  userInfo:@{ kIASKContinousUpdate: @(slider.value) }];
+}
+
+- (void)sliderTouchIsUp:(id)sender {
+	IASKSlider *slider = (IASKSlider*)sender;
+	
+	// store the changed value
+	[self.settingsStore setFloat:slider.value forKey:slider.key];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
+														object:slider.key
+													  userInfo:@{ slider.key: @(slider.value) }];
 }
 
 
@@ -606,6 +616,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		slider.maximumValue = specifier.maximumValue;
 		slider.value =	[self.settingsStore objectForKey:specifier.key] != nil ? [[self.settingsStore objectForKey:specifier.key] floatValue] : [specifier.defaultValue floatValue];
 		[slider addTarget:self action:@selector(sliderChangedValue:) forControlEvents:UIControlEventValueChanged];
+		[slider addTarget:self action:@selector(sliderTouchIsUp:)    forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 		slider.key = specifier.key;
 		[cell setNeedsLayout];
 	}
