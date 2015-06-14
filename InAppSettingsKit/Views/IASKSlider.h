@@ -20,5 +20,6 @@
 @interface IASKSlider : UISlider
 
 @property (nonatomic, copy) NSString *key;
+@property (nonatomic) NSInteger highlightTintingMode;
 
 @end

@@ -392,6 +392,58 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)sliderChangedValue:(id)sender {
     IASKSlider *slider = (IASKSlider*)sender;
 	
+	if (slider.highlightTintingMode != 0) {
+		// TODO: still to fix...
+		// - all 3 modes:
+		//   - maxTrackHighlightColor becomes invisible when thumb is at min. position, i.e. 0
+		//   - maxTrackHighlightColor becomes invisible at the last 10% if maxAdjusted is adding 0.1
+		//     - 20% if adding 0.2, etc. ???
+		// - hue mode (1):
+		//   - maxTrackHighlightColor becmoes invisible if either saturation or brightness is 0
+		// - saturation mode (2):
+		//   - maxTrackHighlightColor becmoes invisible if brightness is 0
+		//
+		
+		UIColor *thumbHighlightColor    = slider.tintColor;
+		UIColor *minTrackHighlightColor = nil;
+		UIColor *maxTrackHighlightColor = nil;
+		CGFloat hue, sat, bri, alpha;
+		if ([thumbHighlightColor getHue:&hue saturation:&sat brightness:&bri alpha:&alpha]) {
+			CGFloat minAdjusted;
+			CGFloat maxAdjusted;
+			switch (slider.highlightTintingMode) {
+				case 1: // hue
+					minAdjusted = MAX(hue - 0.1, 0.0);
+					maxAdjusted = MIN(hue + 0.1, 1.0);
+					minTrackHighlightColor = [UIColor colorWithHue:minAdjusted saturation:sat brightness:bri alpha:1.0];
+					maxTrackHighlightColor = [UIColor colorWithHue:maxAdjusted saturation:sat brightness:bri alpha:1.0];
+					break;
+					
+				case 2: // saturation
+					minAdjusted = MAX(sat - 0.1, 0.0);
+					maxAdjusted = MIN(sat + 0.1, 1.0);
+					minTrackHighlightColor = [UIColor colorWithHue:hue saturation:minAdjusted brightness:bri alpha:1.0];
+					maxTrackHighlightColor = [UIColor colorWithHue:hue saturation:maxAdjusted brightness:bri alpha:1.0];
+					break;
+					
+				case 3: // brightness
+					minAdjusted = MAX(bri - 0.1, 0.0);
+					maxAdjusted = MIN(bri + 0.1, 1.0);
+					minTrackHighlightColor = [UIColor colorWithHue:hue saturation:sat brightness:minAdjusted alpha:1.0];
+					maxTrackHighlightColor = [UIColor colorWithHue:hue saturation:sat brightness:maxAdjusted alpha:1.0];
+					break;
+					
+				default:
+					break;
+			}
+			
+			slider.thumbTintColor        = thumbHighlightColor;
+			slider.minimumTrackTintColor = minTrackHighlightColor; // iOS >= 8.3 only
+			slider.maximumTrackTintColor = maxTrackHighlightColor; // iOS >= 8.3 only
+//			NSLog(@"HSB: %f, %f, %f ; maxAdjusted: %f ; maxColor: %@", hue, sat, bri, maxAdjusted, maxTrackHighlightColor);
+		}
+	}
+	
 	// now does not store the changed value; leaves that for sliderTouchIsUp: below
 	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
 														object:slider.key
@@ -400,6 +452,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)sliderTouchIsUp:(id)sender {
 	IASKSlider *slider = (IASKSlider*)sender;
+	
+	if (slider.highlightTintingMode != 0) {
+		
+		slider.thumbTintColor        = nil;
+		slider.minimumTrackTintColor = nil;
+		slider.maximumTrackTintColor = nil;
+	}
 	
 	// store the changed value
 	[self.settingsStore setFloat:slider.value forKey:slider.key];
@@ -612,6 +671,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		
 		IASKSlider *slider = ((IASKPSSliderSpecifierViewCell*)cell).slider;
+		slider.highlightTintingMode = specifier.highlightTintingMode;
 		slider.minimumValue = specifier.minimumValue;
 		slider.maximumValue = specifier.maximumValue;
 		slider.value =	[self.settingsStore objectForKey:specifier.key] != nil ? [[self.settingsStore objectForKey:specifier.key] floatValue] : [specifier.defaultValue floatValue];

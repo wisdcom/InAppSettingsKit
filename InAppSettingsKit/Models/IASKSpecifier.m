@@ -220,6 +220,10 @@
     return [_specifierDict objectForKey:kIASKMaximumValueImage];
 }
 
+- (NSInteger)highlightTintingMode {
+	return [[_specifierDict objectForKey:kIASKHighlightTintingMode] integerValue];
+}
+
 - (BOOL)isSecure {
     return [[_specifierDict objectForKey:kIASKIsSecure] boolValue];
 }

@@ -48,6 +48,7 @@
 - (float)maximumValue;
 - (NSString*)minimumValueImage;
 - (NSString*)maximumValueImage;
+- (NSInteger)highlightTintingMode;
 - (BOOL)isSecure;
 - (UIKeyboardType)keyboardType;
 - (UITextAutocapitalizationType)autocapitalizationType;
