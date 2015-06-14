@@ -594,11 +594,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		if (specifier.minimumValueImage.length > 0) {
-			((IASKPSSliderSpecifierViewCell*)cell).minImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:specifier.minimumValueImage]];
+			((IASKPSSliderSpecifierViewCell*)cell).minImage.image = [UIImage imageNamed:specifier.minimumValueImage];
 		}
 		
 		if (specifier.maximumValueImage.length > 0) {
-			((IASKPSSliderSpecifierViewCell*)cell).maxImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:specifier.maximumValueImage]];
+			((IASKPSSliderSpecifierViewCell*)cell).maxImage.image = [UIImage imageNamed:specifier.maximumValueImage];
 		}
 		
 		IASKSlider *slider = ((IASKPSSliderSpecifierViewCell*)cell).slider;
