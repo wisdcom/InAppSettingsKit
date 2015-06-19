@@ -392,7 +392,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)sliderChangedValue:(id)sender {
     IASKSlider *slider = (IASKSlider*)sender;
 	
-	if (slider.highlightTintingMode != 0) {
+	IASK_IF_IOS8_OR_GREATER
+	(
+	if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){8, 3, 0}] &&
+		slider.highlightTintingMode != 0) {
 		// TODO: still to fix...
 		// - all 3 modes:
 		//   - maxTrackHighlightColor becomes invisible when thumb is at min. position, i.e. 0
@@ -438,11 +441,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 			}
 			
 			slider.thumbTintColor        = thumbHighlightColor;
-			slider.minimumTrackTintColor = minTrackHighlightColor; // iOS >= 8.3 only
-			slider.maximumTrackTintColor = maxTrackHighlightColor; // iOS >= 8.3 only
+			slider.minimumTrackTintColor = minTrackHighlightColor;
+			slider.maximumTrackTintColor = maxTrackHighlightColor;
 //			NSLog(@"HSB: %f, %f, %f ; maxAdjusted: %f ; maxColor: %@", hue, sat, bri, maxAdjusted, maxTrackHighlightColor);
 		}
 	}
+	)
 	
 	// now does not store the changed value; leaves that for sliderTouchIsUp: below
 	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
@@ -453,12 +457,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)sliderTouchIsUp:(id)sender {
 	IASKSlider *slider = (IASKSlider*)sender;
 	
-	if (slider.highlightTintingMode != 0) {
+	IASK_IF_IOS8_OR_GREATER
+	(
+	if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){8, 3, 0}] &&
+		 slider.highlightTintingMode != 0) {
 		
 		slider.thumbTintColor        = nil;
 		slider.minimumTrackTintColor = nil;
 		slider.maximumTrackTintColor = nil;
 	}
+	)
 	
 	// store the changed value
 	[self.settingsStore setFloat:slider.value forKey:slider.key];
