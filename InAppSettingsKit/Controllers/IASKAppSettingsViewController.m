@@ -728,6 +728,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 	cell.detailTextLabel.textAlignment = specifier.textAlignment;
 	cell.textLabel.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	cell.detailTextLabel.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
+	
+	if ([self.delegate respondsToSelector:@selector(tableView:titleForSpecifier:)]) {
+		NSString* title = [self.delegate tableView:tableView titleForSpecifier:specifier];
+		if (title != nil) {
+			cell.textLabel.text = title;
+		}
+	}
+	
     return cell;
 }
 
