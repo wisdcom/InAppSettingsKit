@@ -606,7 +606,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	
 	UITableViewCell* cell = [self tableView:tableView newCellForSpecifier:specifier];
-
+	
+	if (specifier.titleFontTextStyle != nil) {
+		cell.textLabel.font = [UIFont preferredFontForTextStyle:specifier.titleFontTextStyle];
+	} else {
+		cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	}
+	
 	if ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
 		cell.textLabel.text = specifier.title;
 		cell.detailTextLabel.text = specifier.subtitle;

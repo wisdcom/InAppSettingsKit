@@ -62,6 +62,7 @@
 - (SEL)buttonAction;
 - (UIImage *)cellImage;
 - (UIImage *)highlightedCellImage;
+- (NSString*)titleFontTextStyle;
 - (BOOL)adjustsFontSizeToFitWidth;
 - (NSTextAlignment)textAlignment;
 - (NSArray *)userInterfaceIdioms;

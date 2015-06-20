@@ -72,6 +72,7 @@
 #define kIASKMaximumValueImage                @"MaximumValueImage"
 #define kIASKHighlightTintingMode             @"HighlightTintingMode"
 #define kIASKAdjustsFontSizeToFitWidth        @"IASKAdjustsFontSizeToFitWidth"
+#define kIASKTitleFontTextStyle               @"IASKTitleFontTextStyle"
 #define kIASKTextLabelAlignment               @"IASKTextAlignment"
 #define kIASKTextLabelAlignmentLeft           @"IASKUITextAlignmentLeft"
 #define kIASKTextLabelAlignmentCenter         @"IASKUITextAlignmentCenter"

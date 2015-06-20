@@ -306,6 +306,26 @@
     return [UIImage imageNamed:imageName];
 }
 
+- (NSString*)titleFontTextStyle
+{
+	NSString *textStyle = _specifierDict[kIASKTitleFontTextStyle];
+	if ([textStyle.lowercaseString isEqualToString:@"headline"]) {
+		return UIFontTextStyleHeadline;
+	} else if ([textStyle.lowercaseString isEqualToString:@"subheadline"]) {
+		return UIFontTextStyleSubheadline;
+	} else if ([textStyle.lowercaseString isEqualToString:@"body"]) {
+		return UIFontTextStyleBody;
+	} else if ([textStyle.lowercaseString isEqualToString:@"footnote"]) {
+		return UIFontTextStyleFootnote;
+	} else if ([textStyle.lowercaseString isEqualToString:@"caption1"]) {
+		return UIFontTextStyleCaption1;
+	} else if ([textStyle.lowercaseString isEqualToString:@"caption2"]) {
+		return UIFontTextStyleCaption2;
+	} else {
+		return nil;
+	}
+}
+
 - (BOOL)adjustsFontSizeToFitWidth {
 	NSNumber *boxedResult = [_specifierDict objectForKey:kIASKAdjustsFontSizeToFitWidth];
 	return !boxedResult || [boxedResult boolValue];
