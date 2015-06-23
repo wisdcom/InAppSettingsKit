@@ -567,9 +567,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[((IASKSwitch*)cell.accessoryView) addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
-	else if ([identifier hasPrefix:kIASKPSMultiValueSpecifier] || [identifier hasPrefix:kIASKPSTitleValueSpecifier]) {
+	else if ([identifier hasPrefix:kIASKPSMultiValueSpecifier]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
-		cell.accessoryType = [identifier hasPrefix:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	}
+	else if ([identifier hasPrefix:kIASKPSTitleValueSpecifier]) {
+		UITableViewCellStyle style = (specifier.subtitle.length > 0) ? UITableViewCellStyleSubtitle : UITableViewCellStyleValue1;
+		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
+		cell.accessoryType = UITableViewCellAccessoryNone;
 	}
 	else if ([identifier hasPrefix:kIASKPSTextFieldSpecifier]) {
 		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
