@@ -91,10 +91,9 @@
 				NSString *key = [[keyValue objectAtIndex:0] lowercaseString];
 				NSString *value = [keyValue objectAtIndex:1];
 				
-				value =  CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+				value =  CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault,
 																							 (CFStringRef)value,
-																							 CFSTR(""),
-																							 kCFStringEncodingUTF8));
+																							 CFSTR("")));
 				
 				if ([key isEqualToString:@"subject"]) {
 					[mailViewController setSubject:value];
