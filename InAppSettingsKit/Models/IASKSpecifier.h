@@ -21,6 +21,7 @@
 
 @interface IASKSpecifier : NSObject
 
+@property (nonatomic, strong) NSString *overrideTitle;
 @property (nonatomic, retain) NSDictionary  *specifierDict;
 @property (nonatomic, weak) IASKSettingsReader *settingsReader;
 

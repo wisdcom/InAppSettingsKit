@@ -509,11 +509,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (NSString *)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *header = [self.settingsReader titleForSection:section];
-	if (0 == header.length) {
+    NSString *headerTitle = [self.settingsReader titleForSection:section];
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:titleForHeaderForSection:)]) {
+		NSString* overrideHeaderTitle = [self.delegate settingsViewController:self tableView:tableView titleForHeaderForSection:section];
+		if (overrideHeaderTitle != nil) {
+			headerTitle = overrideHeaderTitle;
+		}
+	}
+	if (0 == headerTitle.length) {
 		return nil;
 	}
-	return header;
+	return headerTitle;
 }
 
 - (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
@@ -537,18 +543,24 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-	NSString *footerText = [self.settingsReader footerTextForSection:section];
+	NSString *footerTitle = [self.settingsReader footerTextForSection:section];
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:titleForFooterForSection:)]) {
+		NSString* overrideFooterTitle = [self.delegate settingsViewController:self tableView:tableView titleForFooterForSection:section];
+		if (overrideFooterTitle != nil) {
+			footerTitle = overrideFooterTitle;
+		}
+	}
 	if (_showCreditsFooter && (section == [self.settingsReader numberOfSections]-1)) {
 		// show credits since this is the last section
-		if ((footerText == nil) || ([footerText length] == 0)) {
+		if ((footerTitle == nil) || ([footerTitle length] == 0)) {
 			// show the credits on their own
 			return kIASKCredits;
 		} else {
 			// show the credits below the app's FooterText
-			return [NSString stringWithFormat:@"%@\n\n%@", footerText, kIASKCredits];
+			return [NSString stringWithFormat:@"%@\n\n%@", footerTitle, kIASKCredits];
 		}
 	} else {
-		return footerText;
+		return footerTitle;
 	}
 }
 
@@ -738,6 +750,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		NSString* title = [self.delegate tableView:tableView titleForSpecifier:specifier];
 		if (title != nil) {
 			cell.textLabel.text = title;
+			specifier.overrideTitle = title;
 		}
 	}
 	

@@ -28,13 +28,19 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
 
 @optional
-#pragma mark - UITableView header customization
+#pragma mark - UITableView header/footer customization
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView
          heightForHeaderForSection:(NSInteger)section;
 - (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
                           tableView:(UITableView *)tableView
             viewForHeaderForSection:(NSInteger)section;
+- (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
+						   tableView:(UITableView*)tableView
+			titleForHeaderForSection:(NSInteger)section;
+- (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
+						   tableView:(UITableView*)tableView
+			titleForFooterForSection:(NSInteger)section;
 
 #pragma mark - UITableView cell customization
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;

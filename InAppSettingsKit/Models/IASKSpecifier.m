@@ -81,7 +81,7 @@
 }
 
 - (NSString*)title {
-    return [self localizedObjectForKey:kIASKTitle];
+	return (self.overrideTitle == nil) ? [self localizedObjectForKey:kIASKTitle] : self.overrideTitle;
 }
 
 - (NSString*)subtitle {
