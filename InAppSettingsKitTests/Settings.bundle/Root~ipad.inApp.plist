@@ -65,6 +65,8 @@
 				<string>9</string>
 				<string>10</string>
 			</array>
+			<key>DisplaySortedByTitle</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -177,6 +179,18 @@
 			<string>IASKOpenURLSpecifier</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentCenter</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>inappsettingskit.com</string>
+			<key>File</key>
+			<string>http://www.inappsettingskit.com/</string>
+			<key>Title</key>
+			<string>Open URL (right)</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
 			<key>File</key>
