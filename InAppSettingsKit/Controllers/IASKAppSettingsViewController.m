@@ -511,6 +511,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 		} else {
 			return 0;
 		}
+	} else if ([self.delegate respondsToSelector:@selector(tableView:heightForSpecifier:)]) {
+		return [self.delegate tableView:tableView heightForSpecifier:specifier];
 	}
 	IASK_IF_IOS7_OR_GREATER
 	(
