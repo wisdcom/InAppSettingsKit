@@ -606,6 +606,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		UITableViewCellStyle style = (specifier.subtitle.length > 0) ? UITableViewCellStyleSubtitle : UITableViewCellStyleValue1;
 		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.detailTextLabel.numberOfLines = 0;
 	}
 	else if ([identifier hasPrefix:kIASKPSTextFieldSpecifier]) {
 		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
