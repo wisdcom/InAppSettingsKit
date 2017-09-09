@@ -308,6 +308,10 @@
 	return [[_specifierDict objectForKey:kIASKHighlightTintingMode] integerValue];
 }
 
+- (NSString*)shouldUpdateGroup {
+	return [_specifierDict objectForKey:kIASKShouldUpdateGroup];
+}
+
 - (BOOL)isSecure {
     return [[_specifierDict objectForKey:kIASKIsSecure] boolValue];
 }

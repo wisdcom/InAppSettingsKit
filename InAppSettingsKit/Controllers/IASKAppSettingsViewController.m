@@ -14,6 +14,7 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
+#import "Dave-Swift.h" // for the tableView.reloadSectionHeader/FooterTextForSection methods
 
 #import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
@@ -1123,6 +1124,23 @@ static NSDictionary *oldUserDefaults = nil;
 - (void)didChangeSettingViaIASK:(NSNotification*)notification {
 	NSString *key = notification.userInfo.allKeys.firstObject;
 	[oldUserDefaults setValue:notification.userInfo[key] forKey:key];
+	
+	NSString *shouldUpdateGroupSpec = [self.settingsReader specifierForKey:key].shouldUpdateGroup.lowercaseString;
+	if (shouldUpdateGroupSpec) {
+		NSIndexPath *indexPath = [self.settingsReader indexPathForKey:key];
+		if (indexPath == nil) { return; }
+		
+		NSInteger section = indexPath.section;
+		if ([shouldUpdateGroupSpec isEqualToString:@"header"]) {
+			[self.tableView reloadSectionHeaderTextForSection:section];
+			
+		} else if ([shouldUpdateGroupSpec isEqualToString:@"footer"]) {
+			[self.tableView reloadSectionFooterTextForSection:section];
+		
+		} else {
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
+		}
+	}
 }
 
 - (void)reload {

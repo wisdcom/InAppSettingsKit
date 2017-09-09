@@ -53,6 +53,7 @@
 - (NSString*)minimumValueImage;
 - (NSString*)maximumValueImage;
 - (NSInteger)highlightTintingMode;
+- (NSString*)shouldUpdateGroup;
 - (BOOL)isSecure;
 - (BOOL)displaySortedByTitle;
 - (UIKeyboardType)keyboardType;
