@@ -28,6 +28,10 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
 
 @optional
+
+#pragma mark -
+- (void) updateHiddenKeys:(IASKAppSettingsViewController*)settingsVieController animated:(BOOL)animated;
+
 #pragma mark - UITableView header/footer customization
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView
