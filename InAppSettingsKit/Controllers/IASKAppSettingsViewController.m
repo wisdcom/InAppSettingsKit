@@ -192,6 +192,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 	// if there's something selected, the value might have changed
 	// so reload that row
 	if(selectedIndexPath) {
+		
+		// WPK: not so fast! is that necessary? reloading cells in iOS 11 causes unwanted scrolling...
+		// - let's check; if the selection was for a child pane, no reloading should be needed
+		if ([[self.settingsReader specifierForIndexPath:selectedIndexPath].type isEqual:kIASKPSChildPaneSpecifier]) {
+			// skip reload
+			NSLog(@"skipped!");
+		} else {
+		///
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animated * UINavigationControllerHideShowBarDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath]
 								  withRowAnimation:UITableViewRowAnimationNone];
@@ -199,6 +207,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 			[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 			[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:YES];
 		});
+		///
+		}
 	}
 	
 	if (_showDoneButton) {
@@ -227,13 +237,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
-	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
-	[dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
-	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
+//	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
+//	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
+//	[dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
+//	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
 
-	[self.tableView beginUpdates];
-	[self.tableView endUpdates];
+//	[self.tableView beginUpdates];
+//	[self.tableView endUpdates];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
