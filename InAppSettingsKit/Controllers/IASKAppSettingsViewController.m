@@ -14,7 +14,7 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#import "Dave-Swift.h" // for the tableView.reloadSectionHeader/FooterTextForSection methods
+#import "Kase-Swift.h" // for the tableView.reloadSectionHeader/FooterTextForSection methods
 
 #import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
