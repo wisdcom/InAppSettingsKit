@@ -455,4 +455,24 @@
 - (id)valueForKey:(NSString *)key {
 	return [_specifierDict objectForKey:key];
 }
+
+- (UITableViewCellAccessoryType)cellAccessoryType {
+	NSString *specType = [_specifierDict[kIASKCellAccessoryType] lowercaseString];
+	if (specType == nil) { // not specified
+		return (UITableViewCellAccessoryType)NSIntegerMin;
+	} else if ([specType isEqualToString:@"none"]) {
+		return UITableViewCellAccessoryNone;
+	} else if ([specType isEqualToString:@"disclosureindicator"]) {
+		return UITableViewCellAccessoryDisclosureIndicator;
+	} else if ([specType isEqualToString:@"detaildisclosurebutton"]) {
+		return UITableViewCellAccessoryDetailDisclosureButton;
+	} else if ([specType isEqualToString:@"checkmark"]) {
+		return UITableViewCellAccessoryCheckmark;
+	} else if ([specType isEqualToString:@"detailbutton"]) {
+		return UITableViewCellAccessoryDetailButton;
+	} else {
+		return (UITableViewCellAccessoryType)NSIntegerMin;
+	}
+}
+
 @end

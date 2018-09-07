@@ -80,6 +80,7 @@
 #define kIASKTextLabelAlignmentLeft           @"IASKUITextAlignmentLeft"
 #define kIASKTextLabelAlignmentCenter         @"IASKUITextAlignmentCenter"
 #define kIASKTextLabelAlignmentRight          @"IASKUITextAlignmentRight"
+#define kIASKCellAccessoryType                @"IASKCellAccessoryType"
 
 #define kIASKShouldUpdateGroup                @"IASKShouldUpdateGroup"
 

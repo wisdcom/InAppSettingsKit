@@ -775,7 +775,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 			cell.textLabel.textColor = tableView.tintColor;
 		});
 		cell.textLabel.textAlignment = specifier.textAlignment;
-		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+		cell.accessoryType = ((NSInteger)specifier.cellAccessoryType != NSIntegerMin) ?
+			(specifier.cellAccessoryType) : // as specified
+			(specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
 		NSInteger index = [specifier.multipleValues indexOfObject:specifier.radioGroupValue];
 		cell.textLabel.text = [self.settingsReader titleForId:specifier.multipleTitles[index]];

@@ -74,4 +74,5 @@
 - (NSTextAlignment)textAlignment;
 - (NSArray *)userInterfaceIdioms;
 - (NSString *)radioGroupValue;
+- (UITableViewCellAccessoryType)cellAccessoryType;
 @end
