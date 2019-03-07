@@ -1148,8 +1148,12 @@ static NSDictionary *oldUserDefaults = nil;
 		if ([shouldUpdateGroupSpec isEqualToString:@"header"]) {
 			[self.tableView reloadSectionHeaderTextForSection:section];
 			
-		} else if ([shouldUpdateGroupSpec isEqualToString:@"footer"]) {
+		} else if ([shouldUpdateGroupSpec hasPrefix:@"footer"]) {
 			[self.tableView reloadSectionFooterTextForSection:section];
+			
+			if ([shouldUpdateGroupSpec containsString:@"(also next)"]) {
+				[self.tableView reloadSectionFooterTextForSection:section+1];
+			}
 		
 		} else {
 			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
