@@ -27,6 +27,8 @@
 	IASKSettingsReader		*_settingsReader;
 }
 
+@property (nonatomic, weak) id delegate;
+
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) IASKSpecifier *currentSpecifier;
 

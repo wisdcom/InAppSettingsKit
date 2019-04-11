@@ -47,6 +47,11 @@
 			titleForFooterForSection:(NSInteger)section;
 
 #pragma mark - UITableView cell customization
+- (void)settingsViewController:(id<IASKViewController>)settingsViewController
+			   willDisplayCell:(UITableViewCell*)cell
+				  forSpecifier:(IASKSpecifier*)specifier
+				   atIndexPath:(NSIndexPath*)indexPath; // only in IASKSpecifierValuesViewController for now
+
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 - (NSString*)tableView:(UITableView*)tableView titleForSpecifier:(IASKSpecifier*)specifier;

@@ -132,6 +132,12 @@
     return [_currentSpecifier footerText];
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:willDisplayCell:forSpecifier:atIndexPath:)]) {
+		[self.delegate settingsViewController:self willDisplayCell:cell forSpecifier:_currentSpecifier atIndexPath:indexPath];
+	}
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell   = [tableView dequeueReusableCellWithIdentifier:kCellValue];
     NSArray *titles         = [_currentSpecifier multipleTitles];
