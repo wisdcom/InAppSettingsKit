@@ -1147,13 +1147,13 @@ static NSDictionary *oldUserDefaults = nil;
 		
 		NSInteger section = indexPath.section;
 		if ([shouldUpdateGroupSpec isEqualToString:@"header"]) {
-			[self.tableView reloadSectionHeaderTextForSection:section];
+			[self.tableView reloadSectionHeaderTextFor:section];
 			
 		} else if ([shouldUpdateGroupSpec hasPrefix:@"footer"]) {
-			[self.tableView reloadSectionFooterTextForSection:section];
+			[self.tableView reloadSectionFooterTextFor:section];
 			
 			if ([shouldUpdateGroupSpec containsString:@"(also next)"]) {
-				[self.tableView reloadSectionFooterTextForSection:section+1];
+				[self.tableView reloadSectionFooterTextFor:section+1];
 			}
 		
 		} else {
