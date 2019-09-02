@@ -789,7 +789,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
     
 	cell.imageView.preferredSymbolConfiguration = [UIImageSymbolConfiguration configurationWithScale:UIImageSymbolScaleLarge];
-	cell.imageView.tintColor = UIColor.systemGrayColor;
 	cell.imageView.image = specifier.cellImage;
 	cell.imageView.highlightedImage = specifier.highlightedCellImage;
     
