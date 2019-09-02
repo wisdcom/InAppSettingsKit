@@ -379,10 +379,15 @@
 - (UIImage *)cellImage
 {
     NSString *imageName = [_specifierDict objectForKey:kIASKCellImage];
-    if( imageName.length == 0 )
+    if (imageName.length == 0)
         return nil;
     
-    return [UIImage imageNamed:imageName];
+	if ([imageName hasPrefix:@"system:"]) {
+		NSString *systemImageName = [imageName substringFromIndex:7]; // length of the above prefix
+		return [UIImage systemImageNamed:systemImageName];
+	} else {
+		return [UIImage imageNamed:imageName];
+	}
 }
 
 - (UIImage *)highlightedCellImage

@@ -788,6 +788,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = specifier.title;
 	}
     
+	cell.imageView.preferredSymbolConfiguration = [UIImageSymbolConfiguration configurationWithScale:UIImageSymbolScaleLarge];
+	cell.imageView.tintColor = UIColor.systemGrayColor;
 	cell.imageView.image = specifier.cellImage;
 	cell.imageView.highlightedImage = specifier.highlightedCellImage;
     
