@@ -16,7 +16,7 @@
 
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
-#import "IASKAppSettingsWebViewController.h"
+//#import "IASKAppSettingsWebViewController.h"
 
 @interface IASKSpecifier ()
 
@@ -172,7 +172,7 @@
 }
 
 - (Class)viewControllerClass {
-    [IASKAppSettingsWebViewController class]; // make sure this is linked into the binary/library
+//    [IASKAppSettingsWebViewController class]; // make sure this is linked into the binary/library
 	NSString *classString = [_specifierDict objectForKey:kIASKViewControllerClass];
 	return classString ? ([self classFromString:classString] ?: [NSNull class]) : nil;
 }
